@@ -16,21 +16,25 @@ use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
 use Psr\Http\Message\ResponseInterface;
 
-class SlackProvider extends AbstractProvider
-{
+class SlackProvider extends AbstractProvider{
     public function getBaseAuthorizationUrl()
     {
-        return 'https://slack.com/openid/connect/authorize';
+        return 'https://auth.ssangyongsports.eu.org/oidc/auth';
     }
 
     public function getBaseAccessTokenUrl(array $params)
     {
-        return 'https://slack.com/api/openid.connect.token';
+        return 'https://auth.ssangyongsports.eu.org/oidc/token';
     }
 
     public function getResourceOwnerDetailsUrl(AccessToken $token)
     {
-        return 'https://slack.com/api/openid.connect.userInfo';
+        return 'https://auth.ssangyongsports.eu.org/oidc/me';
+    }
+
+    protected function getDefaultScopes()
+    {
+        return [];
     }
 
     protected function getDefaultScopes()
