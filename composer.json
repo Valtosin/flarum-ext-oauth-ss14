@@ -1,5 +1,5 @@
 {
-    "name": "blomstra/oauth-slack",
+    "name": "ssport/oauth-slack",
     "description": "Sign in with Slack",
     "keywords": [
         "flarum", "slack", "oauth", "fof", "sso"
