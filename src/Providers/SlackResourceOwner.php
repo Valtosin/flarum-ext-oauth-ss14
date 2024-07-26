@@ -30,7 +30,7 @@ class SlackResourceOwner implements ResourceOwnerInterface
 
     public function getId(): ?string
     {
-        return Arr::get($this->response, 'https://slack.com/user_id');
+        return Arr::get($this->response, 'https://auth.ssangyongsports.eu.org/oidc/me');
     }
 
     public function getName(): ?string
