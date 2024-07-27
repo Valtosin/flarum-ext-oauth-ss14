@@ -30,15 +30,21 @@ class SlackResourceOwner implements ResourceOwnerInterface
 
     public function getId(): ?string
     {
-        return Arr::get($this->response, 'id');
+        return Arr::get($this->response, 'sub'); // OpenID Connect 的用戶 ID 通常在 'sub' 欄位
     }
 
     public function getName(): ?string
     {
-        return Arr::get($this->response, 'name');
+        return Arr::get($this->response, 'name'); // OpenID Connect 中用戶的名字
     }
-    public function getImage192(): ?string
+
+    public function getEmail(): ?string
     {
-        return Arr::get($this->response, 'avatar');
+        return Arr::get($this->response, 'email'); // OpenID Connect 中用戶的電子郵件
+    }
+
+    public function getImage(): ?string
+    {
+        return Arr::get($this->response, 'picture'); // OpenID Connect 中用戶的頭像
     }
 }
