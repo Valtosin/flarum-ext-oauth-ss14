@@ -30,7 +30,7 @@ class SlackResourceOwner implements ResourceOwnerInterface
 
     public function getId(): ?string
     {
-        return Arr::get($this->response, 'https://auth.ssangyongsports.eu.org/oidc/me');
+        return Arr::get($this->response, 'user_id');
     }
 
     public function getName(): ?string
@@ -55,6 +55,6 @@ class SlackResourceOwner implements ResourceOwnerInterface
 
     public function getImage192(): ?string
     {
-        return Arr::get($this->response, 'https://slack.com/user_image_192');
+        return Arr::get($this->response, 'picture');
     }
 }
