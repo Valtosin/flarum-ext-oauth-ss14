@@ -16,7 +16,8 @@ use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
 use Psr\Http\Message\ResponseInterface;
 
-class SlackProvider extends AbstractProvider{
+class SlackProvider extends AbstractProvider
+{
     public function getBaseAuthorizationUrl()
     {
         return 'https://auth.ssangyongsports.eu.org/oidc/auth';
@@ -30,11 +31,6 @@ class SlackProvider extends AbstractProvider{
     public function getResourceOwnerDetailsUrl(AccessToken $token)
     {
         return 'https://auth.ssangyongsports.eu.org/oidc/me';
-    }
-
-    protected function getDefaultScopes()
-    {
-        return [];
     }
 
     protected function getDefaultScopes()
@@ -66,6 +62,6 @@ class SlackProvider extends AbstractProvider{
 
     protected function getAuthorizationHeaders($token = null)
     {
-        return ['Authorization' => 'Bearer '.$token];
+        return ['Authorization' => 'Bearer ' . $token];
     }
 }
