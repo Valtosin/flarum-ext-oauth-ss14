@@ -35,28 +35,29 @@ class SlackProvider extends AbstractProvider
 
     protected function getDefaultScopes()
     {
-        return [];
+        return ['openid', 'profile', 'email']; // OpenID Connect scopes
     }
 
     protected function checkResponse(ResponseInterface $response, $data)
     {
-        if (isset($data['ok']) && $data['ok'] === false) {
-            throw new IdentityProviderException($data['error'], null, $data);
+        if (isset($data['error'])) {
+            throw new IdentityProviderException($data['error_description'] ?? $data['error'], null, $data);
         }
     }
 
     protected function createResourceOwner(array $response, AccessToken $token)
     {
-        return new SlackResourceOwner($response);
+        return new OpenIDResourceOwner($response);
     }
 
     protected function prepareAccessTokenResponse(array $result)
     {
-        $result = parent::prepareAccessTokenResponse($result);
-
+        // OpenID Connect often uses id_token in addition to access_token
         return [
-            'access_token'      => $result['access_token'],
-            'resource_owner_id' => $result['id_token'],
+            'access_token' => $result['access_token'],
+            'id_token'     => $result['id_token'], // Added for OpenID Connect
+            'token_type'   => $result['token_type'],
+            'expires_in'   => $result['expires_in'],
         ];
     }
 
