@@ -1,15 +1,15 @@
 <?php
 
 /*
- * This file is part of blomstra/oauth-slack.
+ * This file is part of ssangyongsports/logto.
  *
- * Copyright (c) 2022 Team Blomstra.
+ * Copyright (c) 2024 SsangyongSports.
  *
  * For the full copyright and license information, please view the LICENSE.md
  * file that was distributed with this source code.
  */
 
-namespace Blomstra\OAuthSlack;
+namespace SsangyongSports\Logto;
 
 use Flarum\Extend;
 use FoF\OAuth\Extend as OAuthExtend;
@@ -23,5 +23,5 @@ return [
 
     new Extend\Locales(__DIR__.'/locale'),
 
-    (new OAuthExtend\RegisterProvider(Providers\Slack::class)),
+    (new OAuthExtend\RegisterProvider(Providers\Logto::class)),
 ];
