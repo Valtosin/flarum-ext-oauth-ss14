@@ -1,8 +1,8 @@
 {
-    "name": "ssport/oauth-slack",
-    "description": "Sign in with Slack",
+    "name": "ssangyongsports/logto",
+    "description": "Sign in with Logto",
     "keywords": [
-        "flarum", "slack", "oauth", "fof", "sso"
+        "flarum", "logto", "oauth", "fof", "sso"
     ],
     "type": "flarum-extension",
     "license": "MIT",
@@ -12,30 +12,29 @@
     },
     "authors": [
         {
-            "name": "ssport",
-            "email": "development@ssport.net",
+            "name": "ssangyongsports",
+            "email": "your-email@example.com",
             "role": "Developer"
         }
     ],
     "support": {
-        "source": "https://github.com/blomstra/flarum-ext-oauth-slack",
-        "issues": "https://github.com/blomstra/flarum-ext-oauth-slack/issues",
-        "email": "helpdesk@blomstra.net"
+        "source": "https://github.com/ssangyongsports/logto",
+        "issues": "https://github.com/ssangyongsports/logto/issues"
     },
-    "homepage": "https://blomstra.net",
+    "homepage": "https://your-homepage.com",
     "autoload": {
         "psr-4": {
-            "Blomstra\\OAuthSlack\\": "src/"
+            "SsangyongSports\\Logto\\": "src/"
         }
     },
     "extra": {
         "flarum-extension": {
-            "title": "Sign in with Slack",
+            "title": "Sign in with Logto",
             "category": "feature",
             "icon": {
-                "name": "fab fa-slack",
-                "backgroundColor": "#EBF1FD",
-                "color": "#3a98d0"
+                "name": "fas fa-sign-in-alt",
+                "backgroundColor": "#000000",
+                "color": "#ffffff"
             }
         }
     }
