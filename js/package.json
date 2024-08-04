@@ -1,6 +1,6 @@
 {
-  "name": "@blomstra/oauth-slack",
-  "version": "0.0.0",
+  "name": "@ssangyongsports/logto",
+  "version": "0.1.0",
   "private": true,
   "prettier": "@flarum/prettier-config",
   "dependencies": {
