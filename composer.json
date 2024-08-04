@@ -24,7 +24,7 @@
     "homepage": "https://your-homepage.com",
     "autoload": {
         "psr-4": {
-            "SsangyongSports\\Logto\\": "src/"
+            "Ssangyongsports\\Logto\\": "src/"
         }
     },
     "extra": {
