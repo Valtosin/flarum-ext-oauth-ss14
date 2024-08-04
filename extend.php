@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace SsangyongSports\Logto;
+namespace Ssangyongsports\Logto;
 
 use Flarum\Extend;
 use FoF\OAuth\Extend as OAuthExtend;
