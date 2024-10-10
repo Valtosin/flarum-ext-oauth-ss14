@@ -24,7 +24,7 @@
     "homepage": "https://fdev.team",
     "autoload": {
         "psr-4": {
-            "valtos\\SS14\\": "src/"
+            "valtos\\OAuthSS14\\": "src/"
         }
     },
     "extra": {
