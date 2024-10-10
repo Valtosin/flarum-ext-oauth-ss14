@@ -12,8 +12,6 @@ class SS14Provider extends AbstractProvider
 {
     use BearerAuthorizationTrait;
 
-    protected $idToken;
-
     public function getBaseAuthorizationUrl()
     {
         return 'https://account.spacestation14.com/connect/authorize';
@@ -59,28 +57,31 @@ class SS14Provider extends AbstractProvider
         return new SS14ResourceOwner($response);
     }
 
+    protected function getAuthorizationHeaders($token = null)
+    {
+        return ['Authorization' => 'Bearer ' . $token];
+    }
+
+    protected function getAccessTokenOptions(array $params)
+    {
+        $options = parent::getAccessTokenOptions($params);
+
+        if (isset($params['code_verifier'])) {
+            $options['form_params']['code_verifier'] = $params['code_verifier'];
+        }
+
+        return $options;
+    }
+
     public function getAccessToken($grant, array $options = [])
     {
         $token = parent::getAccessToken($grant, $options);
 
+        // Store the ID token if it's present in the response
         if (isset($token->getValues()['id_token'])) {
-            $this->idToken = $token->getValues()['id_token'];
+            $token->setIdToken($token->getValues()['id_token']);
         }
 
-        return $token;
-    }
-
-    public function getIdToken()
-    {
-        return $this->idToken;
-    }
-
-    protected function createAccessToken(array $response, AbstractProvider $provider)
-    {
-        $token = new AccessToken($response);
-        if (isset($response['id_token'])) {
-            $this->idToken = $response['id_token'];
-        }
         return $token;
     }
 }
