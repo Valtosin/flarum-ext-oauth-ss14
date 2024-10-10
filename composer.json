@@ -1,8 +1,8 @@
 {
-    "name": "ssangyongsports/logto",
-    "description": "Sign in with Logto",
+    "name": "valtos/oidc-ss14",
+    "description": "Sign in with SS14",
     "keywords": [
-        "flarum", "logto", "oauth", "fof", "sso"
+        "flarum", "ss14", "oauth", "fof", "sso"
     ],
     "type": "flarum-extension",
     "license": "MIT",
@@ -12,24 +12,24 @@
     },
     "authors": [
         {
-            "name": "ssangyongsports",
-            "email": "your-email@example.com",
+            "name": "FDev",
+            "email": "admin@ss14.su",
             "role": "Developer"
         }
     ],
     "support": {
-        "source": "https://github.com/ssangyongsports/logto",
-        "issues": "https://github.com/ssangyongsports/logto/issues"
+        "source": "https://github.com/Valtosin/flarum-ext-oauth-ss14",
+        "issues": "https://github.com/Valtosin/flarum-ext-oauth-ss14/issues"
     },
-    "homepage": "https://your-homepage.com",
+    "homepage": "https://fdev.team",
     "autoload": {
         "psr-4": {
-            "Ssangyongsports\\Logto\\": "src/"
+            "valtos\\Logto\\": "src/"
         }
     },
     "extra": {
         "flarum-extension": {
-            "title": "Sign in with Logto",
+            "title": "Sign in with SS14",
             "category": "feature",
             "icon": {
                 "name": "fas fa-sign-in-alt",

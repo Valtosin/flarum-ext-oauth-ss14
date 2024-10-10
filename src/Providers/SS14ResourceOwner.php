@@ -1,11 +1,11 @@
 <?php
 
-namespace Ssangyongsports\OAuthLogto\Providers;
+namespace valtos\OAuthLogto\Providers;
 
 use Illuminate\Support\Arr;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
 
-class LogtoResourceOwner implements ResourceOwnerInterface
+class SS14ResourceOwner implements ResourceOwnerInterface
 {
     protected $response;
 

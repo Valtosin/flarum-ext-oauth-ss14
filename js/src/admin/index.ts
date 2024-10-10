@@ -1,8 +1,8 @@
 import app from 'flarum/admin/app';
 import { ConfigureWithOAuthPage } from '@fof-oauth';
 
-app.initializers.add('ssangyongsports-logto', () => {
+app.initializers.add('valtos-ss14', () => {
   app.extensionData
-    .for('ssangyongsports-logto')
+    .for('valtos-ss14')
     .registerPage(ConfigureWithOAuthPage);
 });

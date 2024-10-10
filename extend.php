@@ -1,15 +1,15 @@
 <?php
 
 /*
- * This file is part of ssangyongsports/logto.
+ * This file is part of valtos/oidc-ss14.
  *
- * Copyright (c) 2024 SsangyongSports.
+ * Copyright (c) 2024 FDev.
  *
  * For the full copyright and license information, please view the LICENSE.md
  * file that was distributed with this source code.
  */
 
-namespace Ssangyongsports\Logto;
+namespace valtos\ss14;
 
 use Flarum\Extend;
 use FoF\OAuth\Extend as OAuthExtend;

@@ -2,19 +2,19 @@ fof-oauth:
   admin:
     settings:
       providers:
-        slack:
-          description: Register your forum with Slack {link}
+        ss14:
+          description: Register your forum with SS14 {link}
 
           client_id_label: => fof-oauth.ref.settings.client_id
           client_secret_label: => fof-oauth.ref.settings.client_secret
 
   forum:
     log_in:
-      with_slack_button: Sign in with Slack
+      with_ss14_button: Sign in with SS14
 
     providers:
-      slack: '=> fof-oauth.lib.providers.slack'
+      ss14: '=> fof-oauth.lib.providers.ss14'
 
   lib:
     providers:
-      slack: Slack
+      ss14: SS14

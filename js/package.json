@@ -1,5 +1,5 @@
 {
-  "name": "@ssangyongsports/logto",
+  "name": "@valtos/oidc-ss14",
   "version": "0.1.0",
   "private": true,
   "prettier": "@flarum/prettier-config",

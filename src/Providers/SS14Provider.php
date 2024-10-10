@@ -1,27 +1,27 @@
 <?php
 
-namespace Ssangyongsports\OAuthLogto\Providers;
+namespace valtos\OAuthLogto\Providers;
 
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
 use Psr\Http\Message\ResponseInterface;
 
-class LogtoProvider extends AbstractProvider
+class SS14Provider extends AbstractProvider
 {
     public function getBaseAuthorizationUrl()
     {
-        return 'https://auth.ssangyongsports.eu.org/oidc/auth';
+        return 'https://account.spacestation14.com/connect/authorize';
     }
 
     public function getBaseAccessTokenUrl(array $params)
     {
-        return 'https://auth.ssangyongsports.eu.org/oidc/token';
+        return 'https://account.spacestation14.com/connect/token';
     }
 
     public function getResourceOwnerDetailsUrl(AccessToken $token)
     {
-        return 'https://auth.ssangyongsports.eu.org/oidc/me';
+        return 'https://account.spacestation14.com/connect/userinfo';
     }
 
     protected function getDefaultScopes()
@@ -38,7 +38,7 @@ class LogtoProvider extends AbstractProvider
 
     protected function createResourceOwner(array $response, AccessToken $token)
     {
-        return new LogtoResourceOwner($response);
+        return new SS14ResourceOwner($response);
     }
 
     protected function prepareAccessTokenResponse(array $result)

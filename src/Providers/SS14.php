@@ -1,15 +1,15 @@
 <?php
 
-namespace Ssangyongsports\OAuthLogto\Providers;
+namespace valtos\OAuthLogto\Providers;
 
 use Flarum\Forum\Auth\Registration;
 use FoF\OAuth\Provider;
 use League\OAuth2\Client\Provider\AbstractProvider;
 
-class Logto extends Provider
+class SS14 extends Provider
 {
     /**
-     * @var LogtoProvider
+     * @var SS14Provider
      */
     protected $provider;
 
@@ -20,7 +20,7 @@ class Logto extends Provider
 
     public function link(): string
     {
-        return 'https://auth.ssangyongsports.eu.org/oidc';
+        return 'https://account.spacestation14.com/connect';
     }
 
     public function fields(): array
@@ -33,7 +33,7 @@ class Logto extends Provider
 
     public function provider(string $redirectUri): AbstractProvider
     {
-        return $this->provider = new LogtoProvider([
+        return $this->provider = new SS14Provider([
             'clientId'     => $this->getSetting('client_id'),
             'clientSecret' => $this->getSetting('client_secret'),
             'redirectUri'  => $redirectUri,
