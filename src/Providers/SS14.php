@@ -19,13 +19,13 @@ class SS14 extends Provider
     protected $provider;
 
     /**
-     * @var SessionAuthenticator
+     * @var SettingsRepositoryInterface
      */
-    protected $session;
+    protected $settings;
 
-    public function __construct(SessionAuthenticator $session)
+    public function __construct(SettingsRepositoryInterface $settings)
     {
-        $this->session = $session;
+        $this->settings = $settings;
     }
 
     public function name(): string
@@ -55,6 +55,11 @@ class SS14 extends Provider
         ]);
     }
 
+    protected function getSetting($key)
+    {
+        return $this->settings->get("fof-oauth.ss14.$key");
+    }
+
     public function options(): array
     {
         return ['scope' => ['openid', 'email', 'profile']];
@@ -62,28 +67,11 @@ class SS14 extends Provider
 
     protected function getAuthorizationUrlOptions(): array
     {
-        $codeVerifier = $this->generateCodeVerifier();
-        $this->session->set('oauth2_code_verifier', $codeVerifier);
-
         return [
             'response_mode' => 'form_post',
             'response_type' => 'code',
             'prompt' => 'consent',
-            'code_challenge' => $this->generateCodeChallenge($codeVerifier),
-            'code_challenge_method' => 'S256',
         ];
-    }
-
-    protected function generateCodeVerifier(): string
-    {
-        $random = bin2hex(random_bytes(32));
-        return rtrim(strtr(base64_encode($random), '+/', '-_'), '=');
-    }
-
-    protected function generateCodeChallenge(string $codeVerifier): string
-    {
-        $hash = hash('sha256', $codeVerifier, true);
-        return rtrim(strtr(base64_encode($hash), '+/', '-_'), '=');
     }
 
     public function suggestions(Registration $registration, $user, string $token)
@@ -97,20 +85,6 @@ class SS14 extends Provider
             ->setPayload($user->toArray());
     }
 
-    public function getAccessToken($grant, array $options = [])
-    {
-        if ($grant === 'authorization_code') {
-            $codeVerifier = $this->session->get('oauth2_code_verifier');
-            $this->session->remove('oauth2_code_verifier');
-
-            if ($codeVerifier) {
-                $options['code_verifier'] = $codeVerifier;
-            }
-        }
-
-        return parent::getAccessToken($grant, $options);
-    }
-
     public function getResourceOwner(AccessToken $token)
     {
         $response = $this->provider->getResourceOwner($token);
@@ -122,8 +96,9 @@ class SS14 extends Provider
         }
 
         // Validate the ID token if it's present
-        if (isset($token->getValues()['id_token'])) {
-            $this->validateIdToken($token->getValues()['id_token'], $userinfo['sub']);
+        $idToken = $this->provider->getIdToken();
+        if ($idToken) {
+            $this->validateIdToken($idToken, $userinfo['sub']);
         }
 
         return $response;
