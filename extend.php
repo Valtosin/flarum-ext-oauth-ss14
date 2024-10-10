@@ -9,7 +9,7 @@
  * file that was distributed with this source code.
  */
 
-namespace valtos\SS14;
+namespace valtos\OAuthSS14;
 
 use Flarum\Extend;
 use FoF\OAuth\Extend as OAuthExtend;
