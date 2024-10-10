@@ -54,18 +54,13 @@ class SS14 extends Provider
 
         $registration
             ->provideTrustedEmail($email)
-            ->provideAvatar($user->getImage())
             ->suggestUsername($user->getName())
             ->setPayload($user->toArray());
-    }
 
-    protected function getAuthorizationUrlOptions(): array
-    {
-        return [
-            'response_mode' => 'form_post',
-            'response_type' => 'code',
-            'prompt' => 'consent',
-        ];
+        $avatarUrl = $user->getImage();
+        if ($avatarUrl !== null) {
+            $registration->provideAvatar($avatarUrl);
+        }
     }
 
     public function getResourceOwner(AccessToken $token)
@@ -79,8 +74,9 @@ class SS14 extends Provider
         }
 
         // Validate the ID token if it's present
-        if (isset($token->getValues()['id_token'])) {
-            $this->validateIdToken($token->getValues()['id_token'], $userinfo['sub']);
+        $idToken = $this->provider->getIdToken();
+        if ($idToken) {
+            $this->validateIdToken($idToken, $userinfo['sub']);
         }
 
         return $response;
