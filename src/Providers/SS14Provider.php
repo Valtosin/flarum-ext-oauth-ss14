@@ -5,10 +5,13 @@ namespace valtos\OAuthSS14\Providers;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Provider\Exception\IdentityProviderException;
 use League\OAuth2\Client\Token\AccessToken;
+use League\OAuth2\Client\Tool\BearerAuthorizationTrait;
 use Psr\Http\Message\ResponseInterface;
 
 class SS14Provider extends AbstractProvider
 {
+    use BearerAuthorizationTrait;
+
     public function getBaseAuthorizationUrl()
     {
         return 'https://account.spacestation14.com/connect/authorize';
@@ -29,10 +32,23 @@ class SS14Provider extends AbstractProvider
         return ['openid', 'profile', 'email'];
     }
 
+    protected function getScopeSeparator()
+    {
+        return ' ';
+    }
+
     protected function checkResponse(ResponseInterface $response, $data)
     {
-        if (isset($data['error'])) {
-            throw new IdentityProviderException($data['error_description'] ?? $data['error'], null, $data);
+        if (!empty($data['error'])) {
+            $code = 0;
+            $error = $data['error'];
+
+            if (is_array($error)) {
+                $code = $error['code'] ?? 0;
+                $error = $error['message'] ?? 'Unknown error occurred';
+            }
+
+            throw new IdentityProviderException($error, $code, $data);
         }
     }
 
@@ -41,18 +57,20 @@ class SS14Provider extends AbstractProvider
         return new SS14ResourceOwner($response);
     }
 
-    protected function prepareAccessTokenResponse(array $result)
-    {
-        return [
-            'access_token' => $result['access_token'],
-            'id_token'     => $result['id_token'],
-            'token_type'   => $result['token_type'],
-            'expires_in'   => $result['expires_in'],
-        ];
-    }
-
     protected function getAuthorizationHeaders($token = null)
     {
         return ['Authorization' => 'Bearer ' . $token];
+    }
+
+    public function getAccessToken($grant, array $options = [])
+    {
+        $token = parent::getAccessToken($grant, $options);
+
+        // Store the ID token if it's present in the response
+        if (isset($token->getValues()['id_token'])) {
+            $token->setIdToken($token->getValues()['id_token']);
+        }
+
+        return $token;
     }
 }
