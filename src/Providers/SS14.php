@@ -6,8 +6,6 @@ use Flarum\Forum\Auth\Registration;
 use FoF\OAuth\Provider;
 use League\OAuth2\Client\Provider\AbstractProvider;
 use League\OAuth2\Client\Token\AccessToken;
-use Flarum\Http\SessionAuthenticator;
-use Illuminate\Support\Arr;
 use Firebase\JWT\JWT;
 use Firebase\JWT\Key;
 
@@ -17,16 +15,6 @@ class SS14 extends Provider
      * @var SS14Provider
      */
     protected $provider;
-
-    /**
-     * @var SessionAuthenticator
-     */
-    protected $session;
-
-    public function __construct(SessionAuthenticator $session)
-    {
-        $this->session = $session;
-    }
 
     public function name(): string
     {
@@ -60,32 +48,6 @@ class SS14 extends Provider
         return ['scope' => ['openid', 'email', 'profile']];
     }
 
-    protected function getAuthorizationUrlOptions(): array
-    {
-        $codeVerifier = $this->generateCodeVerifier();
-        $this->session->set('oauth2_code_verifier', $codeVerifier);
-
-        return [
-            'response_mode' => 'form_post',
-            'response_type' => 'code',
-            'prompt' => 'consent',
-            'code_challenge' => $this->generateCodeChallenge($codeVerifier),
-            'code_challenge_method' => 'S256',
-        ];
-    }
-
-    protected function generateCodeVerifier(): string
-    {
-        $random = bin2hex(random_bytes(32));
-        return rtrim(strtr(base64_encode($random), '+/', '-_'), '=');
-    }
-
-    protected function generateCodeChallenge(string $codeVerifier): string
-    {
-        $hash = hash('sha256', $codeVerifier, true);
-        return rtrim(strtr(base64_encode($hash), '+/', '-_'), '=');
-    }
-
     public function suggestions(Registration $registration, $user, string $token)
     {
         $this->verifyEmail($email = $user->getEmail());
@@ -97,18 +59,13 @@ class SS14 extends Provider
             ->setPayload($user->toArray());
     }
 
-    public function getAccessToken($grant, array $options = [])
+    protected function getAuthorizationUrlOptions(): array
     {
-        if ($grant === 'authorization_code') {
-            $codeVerifier = $this->session->get('oauth2_code_verifier');
-            $this->session->remove('oauth2_code_verifier');
-
-            if ($codeVerifier) {
-                $options['code_verifier'] = $codeVerifier;
-            }
-        }
-
-        return parent::getAccessToken($grant, $options);
+        return [
+            'response_mode' => 'form_post',
+            'response_type' => 'code',
+            'prompt' => 'consent',
+        ];
     }
 
     public function getResourceOwner(AccessToken $token)

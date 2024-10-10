@@ -62,17 +62,6 @@ class SS14Provider extends AbstractProvider
         return ['Authorization' => 'Bearer ' . $token];
     }
 
-    protected function getAccessTokenOptions(array $params)
-    {
-        $options = parent::getAccessTokenOptions($params);
-
-        if (isset($params['code_verifier'])) {
-            $options['form_params']['code_verifier'] = $params['code_verifier'];
-        }
-
-        return $options;
-    }
-
     public function getAccessToken($grant, array $options = [])
     {
         $token = parent::getAccessToken($grant, $options);
