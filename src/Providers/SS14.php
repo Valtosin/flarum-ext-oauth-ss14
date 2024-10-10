@@ -1,6 +1,6 @@
 <?php
 
-namespace valtos\OAuthLogto\Providers;
+namespace valtos\OAuthSS14\Providers;
 
 use Flarum\Forum\Auth\Registration;
 use FoF\OAuth\Provider;
@@ -15,7 +15,7 @@ class SS14 extends Provider
 
     public function name(): string
     {
-        return 'logto';
+        return 'SS14';
     }
 
     public function link(): string

@@ -24,7 +24,7 @@
     "homepage": "https://fdev.team",
     "autoload": {
         "psr-4": {
-            "valtos\\Logto\\": "src/"
+            "valtos\\SS14\\": "src/"
         }
     },
     "extra": {

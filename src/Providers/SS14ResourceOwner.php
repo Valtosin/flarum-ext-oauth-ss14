@@ -1,6 +1,6 @@
 <?php
 
-namespace valtos\OAuthLogto\Providers;
+namespace valtos\OAuthSS14\Providers;
 
 use Illuminate\Support\Arr;
 use League\OAuth2\Client\Provider\ResourceOwnerInterface;
