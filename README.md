@@ -1,6 +1,6 @@
 # Sign in With SS14
 
-![License](https://img.shields.io/badge/license-MIT-blue.svg) [![Latest Stable Version](https://img.shields.io/packagist/v/valtos/oauth-ss14.svg)](https://packagist.org/packages/valtos/oauth-ss14) [![Total Downloads](https://img.shields.io/packagist/dt/valtos/oauth-ss14.svg)](https://packagist.org/packages/valtos/oauth-ss14)
+![License](https://img.shields.io/badge/license-MIT-blue.svg) [![Latest Stable Version](https://img.shields.io/packagist/v/valtos/oidc-ss14.svg)](https://packagist.org/packages/valtos/oidc-ss14) [![Total Downloads](https://img.shields.io/packagist/dt/valtos/oidc-ss14.svg)](https://packagist.org/packages/valtos/oidc-ss14)
 
 A [Flarum](http://flarum.org) extension. Sign in with SS14
 
@@ -9,13 +9,13 @@ A [Flarum](http://flarum.org) extension. Sign in with SS14
 Install with composer:
 
 ```sh
-composer require valtos/oauth-ss14:"*"
+composer require valtos/oidc-ss14:"*"
 ```
 
 ## Updating
 
 ```sh
-composer update valtos/oauth-ss14
+composer update valtos/oidc-ss14
 php flarum cache:clear
 ```
 
@@ -36,4 +36,4 @@ Enjoy logging in with your SS14 credentials!
 
 ## Links
 
-- [Packagist](https://packagist.org/packages/valtos/oauth-ss14)
+- [Packagist](https://packagist.org/packages/valtos/oidc-ss14)
